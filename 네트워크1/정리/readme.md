@@ -212,6 +212,85 @@
 - 재전송방식을 이용해 오류복구 수행
 - ARQ방식
 ```
+---
+> 데이터 링크 계층<br>
+```
+- MAC 계층 : 물리계층의 기능 수행
+- LLC 계층 : 데이터 링크 계층의 기본기능 수행
+```
+---
+> 공유메체를 이용한 데이터 전달방법<br>
+- 충돌문제를 해결하기 위해
+```
+- CSMA/CD : 충돌감지 기능 필수적
+- 타임슬롯 방식 : 시간대를 나누어 데이터 전송
+---- 재전송기능을 오류를 복구 ----
+```
+---
+> IEEE 802 시리즈<br>
+```
+- 802.1 : 표준안 전체
+- 802.2 : LLC계층 소개
+- 802.3 : 다양한 환경의 MAC계층
+- 802.4 : CSMA/CD
+- 802.5 : 토큰 버스
+- 802.6 : 토큰 링
+```
+---
+> 데이터 프레임<br>
+- 출발지 주소와 목적지 주소가 반드시 포함
+---
+> CSMA/CD에서 신호 감지 프로토콜<br>
+```
+- 1-persistent CSMA
+- Non-persistent CSMA
+- P-persistent CSMA
+- CSMA CD
+```
+---
+> 프레임 구조<br>
+preamble | start Delimiter | D.A | S.A | length or type | Date | checksum
+---
+> 토큰버스의 구조<br>
+preamble | start Delimiter | frame control | D.A | S.A | length or type | Date | checksum | end Delimiter
+```
+frame control필드 : 0  0 : 제어용 MAC 프레임
+                  : 0  1 : LLC 프레임
+                  : 1  0 : 네트워크 관리용 데이터 프레임
+                  : 1  1 : 예약
+```
+> 토큰링의 구조<br>
+SD | AC | FC | D.A | S.A | Data | checksum | ED | FS
+```
+- SD, AC ,ED : 토큰
+- SD : Start Delimiter 시작 구분자
+        I 비트 : 데이터 프레임 여러개로 나누어 전송
+        E 비트 : 오류검출용
+
+- AC : Access control 접근 제어
+        P : 우선순위
+        T : 토큰 -> 토큰프레임의 값이 0
+        M : 모니터 -> 오류발생시 링 주위를 무한정 순환을 막기위해 사용
+        R : 예약
+
+- FC : Frame control 프레임 제어
+        0 0 : 제어용 MAC프레임
+        0 1 : LLC 프레임
+        1 X : 예약
+
+- ED : End Delimiter 끝 구분자
+        A 비트 : 수신호스트가 접근 -> 1
+        C 비트 : 수신호스트가 자신의 내부 버퍼에 보관했다고 표시로 '1'지정
+
+- FS : Frame state 프레임 상태
+```
+---
+> LLC 프레임 캡슐화 <br>
+```
+- 필수
+- 좌우에 토큰버스 프레임의 헤더와 트레일러 정보가 채워가면 물리계층이 수신호스트로 전송
+```
+
 
 
 
